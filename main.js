@@ -3,4 +3,4 @@ function greet(name) {
   console.log(message);
 }
 
-function sum(a,
+function sum(a, b) {
