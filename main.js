@@ -1,1 +1,1 @@
-funct
+function h
