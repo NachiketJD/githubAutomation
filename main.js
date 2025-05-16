@@ -1,1 +1,2 @@
-function hello(
+function hello() {
+ 
