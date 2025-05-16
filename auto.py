@@ -1,5 +1,4 @@
 import subprocess
-import time
 
 input_code = """function hello() {
   console.log("Hello World");
@@ -7,8 +6,6 @@ input_code = """function hello() {
 """
 
 output_file = "main.js"
-
-# Start with an empty file
 with open(output_file, "w") as f:
     pass
 
@@ -19,15 +16,17 @@ for i, char in enumerate(input_code):
         f.write(char)
     buffer += char
 
-    # Every 5 characters or at the end
     if len(buffer) == 5 or i == len(input_code) - 1:
         try:
             subprocess.run(["git", "add", "."], check=True)
             subprocess.run(["git", "commit", "-m", f"Add: {repr(buffer)}"], check=True)
-            subprocess.run(["git", "push"], check=True)
+            # Try normal push first
+            try:
+                subprocess.run(["git", "push"], check=True)
+            except subprocess.CalledProcessError:
+                # Set upstream only once if needed
+                subprocess.run(["git", "push", "--set-upstream", "origin", "master"], check=True)
             print(f"Committed: {repr(buffer)}")
         except subprocess.CalledProcessError as e:
             print(f"Git error: {e}")
-            break
         buffer = ""
-        # Optional: time.sleep(1)  # Add delay if needed
