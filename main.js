@@ -4,4 +4,4 @@ function greet(name) {
 }
 
 function sum(a, b) {
-  return 
+  return a + b
