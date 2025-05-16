@@ -12,4 +12,5 @@ function isEven(n) {
 }
 
 for (let i = 0; i < 10; i++) {
-  console.log(i, isEven(i) ? "Even" : "Odd"
+  console.log(i, isEven(i) ? "Even" : "Odd");
+}
