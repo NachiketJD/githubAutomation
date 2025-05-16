@@ -1,2 +1,2 @@
 function hello() {
-  cons
+  console.l
