@@ -1,1 +1,1 @@
-function g
+function greet(
