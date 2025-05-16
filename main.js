@@ -8,4 +8,4 @@ function sum(a, b) {
 }
 
 function isEven(n) {
-  return 
+  return n % 2
