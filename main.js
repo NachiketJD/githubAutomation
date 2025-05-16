@@ -1,2 +1,2 @@
 function hello() {
-  console.l
+  console.log("H
