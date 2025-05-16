@@ -1,1 +1,1 @@
-function greet(
+function greet(name)
