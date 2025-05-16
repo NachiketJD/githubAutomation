@@ -1,1 +1,2 @@
-function greet(name)
+function greet(name) {
+  
