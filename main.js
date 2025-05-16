@@ -11,4 +11,4 @@ function isEven(n) {
   return n % 2 === 0;
 }
 
-for (let i = 0
+for (let i = 0; i <
