@@ -1,2 +1,2 @@
 function greet(name) {
-  const message = `Hel
+  const message = `Hello, $
