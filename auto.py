@@ -1,25 +1,75 @@
 import subprocess
 
-input_code = """function greet(name) {
-  const message = `Hello, ${name}! Welcome to the system.`;
-  console.log(message);
-}
+input_code = """from fastapi import FastAPI, File, Form, UploadFile
+from fastapi.responses import JSONResponse
+from fastapi.middleware.cors import CORSMiddleware
+import os, tempfile
+from git import Repo
+from docx import Document
+import fitz  # PyMuPDF
 
-function sum(a, b) {
-  return a + b;
-}
+app = FastAPI()
 
-function isEven(n) {
-  return n % 2 === 0;
-}
+# Enable CORS for frontend
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
-for (let i = 0; i < 10; i++) {
-  console.log(i, isEven(i) ? "Even" : "Odd");
-}
+def extract_text(file: UploadFile):
+    if file.filename.endswith(".txt"):
+        return file.file.read().decode()
+    elif file.filename.endswith(".docx"):
+        doc = Document(file.file)
+        return "\n".join(p.text for p in doc.paragraphs)
+    elif file.filename.endswith(".pdf"):
+        pdf = fitz.open(stream=file.file.read(), filetype="pdf")
+        return "\n".join(page.get_text() for page in pdf)
+    else:
+        raise ValueError("Unsupported file type")
+
+@app.post("/auto-commit/")
+async def auto_commit(
+    file: UploadFile = File(...),
+    repo_url: str = Form(...),
+    branch: str = Form(default="main"),
+    commit_interval: int = Form(default=5)
+):
+    with tempfile.TemporaryDirectory() as tmpdir:
+        # Clone repo
+        repo = Repo.clone_from(repo_url, tmpdir)
+        filepath = os.path.join(tmpdir, "autocommit.txt")
+
+        content = extract_text(file)
+        with open(filepath, "w") as f:
+            f.write("")
+
+        buffer = ""
+        for i, c in enumerate(content):
+            with open(filepath, "a") as f:
+                f.write(c)
+            buffer += c
+
+            if len(buffer) >= commit_interval or i == len(content) - 1:
+                repo.git.add("autocommit.txt")
+                repo.git.commit(m=f"Add: {buffer!r}")
+                buffer = ""
+
+        origin = repo.remote(name='origin')
+        try:
+            origin.push()
+        except Exception:
+            repo.git.push("--set-upstream", "origin", branch)
+
+    return JSONResponse({"status": "Completed and pushed successfully."})
+
 """
 
 
-output_file = "main.js"
+output_file = "main.py"
 with open(output_file, "w") as f:
     pass
 
