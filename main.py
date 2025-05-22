@@ -19,4 +19,4 @@ app.add_middleware(
 
 def extract_text(file: UploadFile):
     if file.filename.endswith(".txt"):
-        return file.file.rea
+        return file.file.read().d
