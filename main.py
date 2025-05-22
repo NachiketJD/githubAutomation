@@ -17,4 +17,4 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-def extract_text(file: Uploa
+def extract_text(file: UploadFile
