@@ -17,4 +17,4 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-def extract_t
+def extract_text(f
