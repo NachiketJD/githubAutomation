@@ -22,4 +22,4 @@ def extract_text(file: UploadFile):
         return file.file.read().decode()
     elif file.filename.endswith(".docx"):
         doc = Document(file.file)
- 
+      
