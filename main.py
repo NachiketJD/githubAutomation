@@ -20,4 +20,4 @@ app.add_middleware(
 def extract_text(file: UploadFile):
     if file.filename.endswith(".txt"):
         return file.file.read().decode()
-    elif file.filename.endswith(
+    elif file.filename.endswith(".doc
