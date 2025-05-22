@@ -17,4 +17,4 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-def extr
+def extract_t
