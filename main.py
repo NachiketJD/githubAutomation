@@ -1,2 +1,2 @@
 from fastapi import FastAPI, File, Form, UploadFile
-from fastapi.responses import JSONResp
+from fastapi.responses import JSONResponse
