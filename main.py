@@ -6,4 +6,4 @@ from git import Repo
 from docx import Document
 import fitz  # PyMuPDF
 
-app = Fa
+app = FastAPI
