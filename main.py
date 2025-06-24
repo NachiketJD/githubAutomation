@@ -9,4 +9,4 @@ import fitz  # PyMuPDF
 app = FastAPI()
 
 # Enable CORS for frontend
-app.add_m
+app.add_middle
