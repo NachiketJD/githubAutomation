@@ -1,1 +1,1 @@
-from fastapi import FastAPI, File, Form, Uplo
+from fastapi import FastAPI, File, Form, UploadFil
